@@ -15,9 +15,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object ApiModule {
-    private const val BASE_URL = "";
+    private const val BASE_URL = "https://gestionhuacalesapi.azurewebsites.net/api/";
     @Provides
-    @Singleton
     fun provideMoshi(): Moshi =
         Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
@@ -31,6 +30,13 @@ object ApiModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient =
+        OkHttpClient.Builder().build()
 
-
+    @Provides
+    @Singleton
+    fun provideGastoApi(retrofit: Retrofit): GastoApi =
+        retrofit.create(GastoApi::class.java)
 }
