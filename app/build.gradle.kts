@@ -39,8 +39,18 @@ android {
     buildFeatures {
         compose = true
     }
-}
+    packaging {
+        resources {
+            excludes.add("META-INF/INDEX.LIST")
+            excludes.add("META-INF/*.kotlin_module")
+            excludes.add("META-INF/DEPENDENCIES")
+            excludes.add("META-INF/io.netty.versions.properties")
+            excludes.add("META-INF/LICENSE")
+            excludes.add("META-INF/NOTICE")
+        }
+    }
 
+}
 dependencies {
     // Kotlin y AndroidX
     implementation(libs.androidx.core.ktx)
